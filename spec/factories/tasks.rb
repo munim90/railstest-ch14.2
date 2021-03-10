@@ -1,4 +1,3 @@
-#START:P1
 FactoryBot.define do
   factory :task do
     sequence(:title) { |n| "Task #{n}" }
@@ -9,8 +8,6 @@ FactoryBot.define do
       size {"1"}
     end
 
-    #END:P1
-    #START:P2
     trait :large do
       size {"5"}
     end
@@ -37,4 +34,3 @@ FactoryBot.define do
   end
 
 end
-#END:P2

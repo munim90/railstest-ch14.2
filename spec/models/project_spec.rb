@@ -5,7 +5,7 @@ RSpec.describe Project do
   it_should_behave_like "sizeable"
 
   describe "completion" do
-    ## START: with_basic_factories
+    #
     describe "without a task" do
       let(:project) { FactoryBot.build_stubbed(:project) }
       it "considers a project with no tasks to be done" do
@@ -33,10 +33,10 @@ RSpec.describe Project do
         expect(project).to be_done
       end
     end
-    ## END: with_basic_factories
+    #
   end
 
-  ## START: with_key_factories
+  #
   describe "estimates" do
     let(:project) { FactoryBot.build_stubbed(:project,
       tasks: [newly_done, old_done, small_not_done, large_not_done]) }
@@ -54,7 +54,7 @@ RSpec.describe Project do
     it "can calculate remaining size" do
       expect(project).to be_of_size(6).for_incomplete_tasks_only
     end
-    ## END: with_key_factories
+    #
 
     it "knows its velocity" do
       expect(project.completed_velocity).to eq(3)
@@ -79,7 +79,7 @@ RSpec.describe Project do
     end
   end
 
-  ## START: test_order
+  #
   describe "task order" do
     let(:project) { create(:project, name: "Project") }
 
@@ -93,41 +93,41 @@ RSpec.describe Project do
       expect(project.next_task_order).to eq(4)
     end
   end
-  ## END: test_order
+  #
 
   describe "stubs" do
-    ## START: stub_one
+    #
     it "stubs an object" do
       project = Project.new(name: "Project Greenlight")
-      allow(project).to receive(:name) # <label id="code.stub_one_stub" />
-      expect(project.name).to be_nil # <label id="code.stub_one_assert" />
+      allow(project).to receive(:name) 
+      expect(project.name).to be_nil 
     end
-    ## END: stub_one
+    #
 
-    ## START: stub_two
+    #
     it "stubs an object again" do
       project = Project.new(name: "Project Greenlight")
       allow(project).to receive(:name).and_return("Fred")
       expect(project.name).to eq("Fred")
     end
-    ## END: stub_two
+    #
 
-    ## START: stub_class
+    #
     it "stubs the class" do
       allow(Project).to receive(:find).and_return(
         Project.new(name: "Project Greenlight"))
-      project = Project.find(1) # <label id="code.stub_class_stub" />
+      project = Project.find(1) 
       expect(project.name).to eq("Project Greenlight")
     end
-    ## END: stub_class
+    #
 
-    ## START: mock_one
+    #
     it "mocks an object" do
       mock_project = Project.new(name: "Project Greenlight")
       expect(mock_project).to receive(:name).and_return("Fred")
       expect(mock_project.name).to eq("Fred")
     end
-    ## END: mock_one
+    #
 
   end
 

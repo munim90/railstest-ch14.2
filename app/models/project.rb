@@ -39,14 +39,15 @@ class Project < ApplicationRecord
   end
 
   def on_schedule?
+    return false if projected_days_remaining.infinite?
     return false if projected_days_remaining.nan?
     (Time.zone.today + projected_days_remaining) <= due_date
   end
 
-  # #START: next_task_order
+  # 
   def next_task_order
     return 1 if tasks.empty?
     (tasks.last.project_order || tasks.size) + 1
   end
-  # #END: next_task_order
+  # 
 end

@@ -1,11 +1,11 @@
 require "rails_helper"
 
-# #START: shared
+# 
 RSpec.describe Task do
 
   it_should_behave_like "sizeable"
 
-  # #END:shared
+  # 
 
   describe "initialization" do
     let(:task) { Task.new }
@@ -19,7 +19,7 @@ RSpec.describe Task do
       expect(task).to be_complete
     end
 
-    ## START: multi_return
+    #
     it "stubs with multiple return values" do
       task = Task.new
       allow(task).to receive(:size).and_return(1, 2)
@@ -27,10 +27,10 @@ RSpec.describe Task do
       assert_equal(2, task.size)
       assert_equal(2, task.size)
     end
-    ## END: multi_return
+    #
   end
 
-  ## START: vel_test
+  #
   describe "velocity" do
     let(:task) { Task.new(size: 3) }
 
@@ -40,20 +40,20 @@ RSpec.describe Task do
     end
 
     it "counts a recently completed task toward velocity" do
-      task.mark_completed(1.day.ago) # <label id="code.new_complete" />
+      task.mark_completed(1.day.ago) 
       expect(task).to be_a_part_of_velocity
       expect(task.points_toward_velocity).to eq(3)
     end
 
     it "does not count a long-ago completed task toward velocity" do
-      task.mark_completed(6.months.ago) # <label id="code.old_complete" />
+      task.mark_completed(6.months.ago) 
       expect(task).not_to be_a_part_of_velocity
       expect(task.points_toward_velocity).to eq(0)
     end
   end
-  # #END:  vel_test
+  # 
 
-  ## START: first_or_last
+  #
 
   describe "order", aggregate_failures: true do
     let(:project) { create(:project, name: "Project") }
@@ -70,7 +70,7 @@ RSpec.describe Task do
       expect(third).to be_last_in_project
     end
 
-    ## START: up_and_down
+    #
     it "knows neighbors" do
       expect(second.previous_task).to eq(first)
       expect(second.next_task).to eq(third)
@@ -99,9 +99,9 @@ RSpec.describe Task do
       third.move_down
       expect(third.reload.project_order).to eq(3)
     end
-    ## END: up_and_down
+    #
   end
 
-  ## END: first_or_last
+  #
 
 end

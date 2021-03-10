@@ -1,11 +1,19 @@
-// ## START: imports
+/***
+ * Excerpted from "Rails 5 Test Prescriptions",
+ * published by The Pragmatic Bookshelf.
+ * Copyrights apply to this code. It may not be used to create training material,
+ * courses, books, articles, and the like. Contact us if you are in doubt.
+ * We make no guarantees that this code is fit for any purpose.
+ * Visit http://www.pragmaticprogrammer.com/titles/nrtest3 for more book information.
+***/
+// #
 import {Project} from "../../app/javascript/packs/project.js"
 import {Task} from "../../app/javascript/packs/task.js"
 import {TaskUpdater} from "../../app/javascript/packs/task_updater.js"
 import td from "testdouble/dist/testdouble"
 import tdJasmine from "testdouble-jasmine"
 tdJasmine.use(td)
-// ## END: imports
+// #
 
 describe("Projects", () => {
   let project
@@ -31,7 +39,7 @@ describe("Projects", () => {
     expect(project.lastTask().index()).toEqual(2)
   })
 
-  // ## START: with_validation
+  // #
   it("can move a task up", () => {
     const FakeUpdater = td.constructor(TaskUpdater)
     project.tasks[1].updater = new FakeUpdater()
@@ -41,6 +49,7 @@ describe("Projects", () => {
     expect(project.lastTask().name).toEqual("End Project")
     td.verify(FakeUpdater.prototype.update("up"))
   })
+
   it("can move a task down", () => {
     const FakeUpdater = td.constructor(TaskUpdater)
     project.tasks[1].updater = new FakeUpdater()
@@ -50,7 +59,7 @@ describe("Projects", () => {
     expect(project.lastTask().name).toEqual("Middle Project")
     expect().toVerify(FakeUpdater.prototype.update("down"))
   })
-  // ## END: with_validation
+  // #
 
   it("handles asking for the top task to move up", () => {
     project.firstTask().moveUp()

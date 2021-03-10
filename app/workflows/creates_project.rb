@@ -1,7 +1,7 @@
 class CreatesProject
   attr_accessor :name, :project, :task_string
 
-  ## START: success
+  #
   def initialize(name: "", task_string: "")
     @name = name
     @task_string = task_string || ""
@@ -23,12 +23,13 @@ class CreatesProject
     result = project.save
     @success = result
   end
-  ## END: success
+  #
 
   def convert_string_to_tasks
-    task_string.split("\n").map do |one_task|
+    task_string.split("\n").map.with_index do |one_task, index|
       title, size_string = one_task.split(":")
-      Task.new(title: title, size: size_as_integer(size_string))
+      Task.new(title: title,
+               size: size_as_integer(size_string), project_order: index + 1)
     end
   end
 

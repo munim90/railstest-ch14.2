@@ -1,7 +1,7 @@
-#START:P1
 require "rails_helper"
 
 RSpec.describe "adding a new task" do
+
   let!(:project) { create(:project, name: "Project Bluebook") }
   let!(:task_1) { create(
     :task, project: project, title: "Search Sky", size: 1, project_order: 1) }
@@ -12,7 +12,11 @@ RSpec.describe "adding a new task" do
     :task, project: project, title: "Take Notes", size: 1,
            project_order: 3) }
 
-  it "can re-order a task" do
+  before(:example) do
+    sign_in(create(:user))
+  end
+
+  it "can re-order a task", :js do
     visit(project_path(project))
     find("#task_3")
     within("#task_3") do
@@ -20,14 +24,11 @@ RSpec.describe "adding a new task" do
     end
     expect(page).to have_selector(
       "tbody:nth-child(2) .name", text: "Take Notes")
-      #END:P1
-      #START:P2
     visit(project_path(project))
     find("#task_2")
     within("#task_2") do
-      expect(page).to have_selector(".name", text: "Use Telescope")
+      expect(page).to have_selector(".name", text: "Take Notes")
     end
   end
 
 end
-#END:P2

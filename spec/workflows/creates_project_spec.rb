@@ -13,7 +13,7 @@ RSpec.describe CreatesProject do
     end
   end
 
-  ## START: failure_test
+  #
 
   describe "failure cases" do
     it "fails when trying to save a project with no name" do
@@ -23,9 +23,9 @@ RSpec.describe CreatesProject do
     end
   end
 
-  ## END: failure_test
+  #
 
-  ## START: mock_failure
+  #
   describe "mocking a failure" do
     it "fails when we say it fails" do
       project = instance_spy(Project, save: false)
@@ -35,7 +35,7 @@ RSpec.describe CreatesProject do
       expect(creator).not_to be_a_success
     end
   end
-  ## END: mock_failure
+  #
 
   describe "task string parsing" do
     let(:tasks) { creator.convert_string_to_tasks }

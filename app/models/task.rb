@@ -20,19 +20,19 @@ class Task < ApplicationRecord
     part_of_velocity? ? size : 0
   end
 
-  ## START: first
+  #
   def first_in_project?
     return false unless project
-    project.tasks.first == self
+    project.tasks.to_a.first == self
   end
 
   def last_in_project?
     return false unless project
-    project.tasks.last == self
+    project.tasks.to_a.last == self
   end
-  ## END: first
+  #
 
-  ## START: moving
+  #
   def previous_task
     project.tasks.find_by(project_order: project_order - 1)
   end
@@ -55,5 +55,5 @@ class Task < ApplicationRecord
     swap_order_with(next_task) unless last_in_project?
   end
 
-  ## END: moving
+  #
 end
